@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import moment from 'moment';
 import Add from './Add';
 import Entry from './Entry';
 
@@ -7,6 +8,7 @@ class Day extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      date: this.props.date,
       adding: false,
       data: [],
     };
@@ -14,15 +16,26 @@ class Day extends React.Component {
     this.toggleAdd = this.toggleAdd.bind(this);
   }
 
-  getData() {
+  getData(callback) {
     axios.get(`/bulletJournal/${this.props.date}`)
     .then((res) => {
       this.setState({data: res.data});
     })
+    .then(callback)
     .catch(console.log);
   }
   toggleAdd() {
     this.setState({adding: !this.state.adding});
+  }
+
+  componentDidUpdate(prev){
+    console.log(prev.updatedDay, this.props.updatedDay)
+    if(!prev.updatedDay && this.props.updatedDay) {
+      this.getData(() => {this.props.updated(this.props.date)});
+    }
+    if(this.props.date !== prev.date) {
+      this.setState({date: this.props.date, adding: false}, this.getData);
+    }
   }
 
   componentDidMount() {
@@ -32,12 +45,13 @@ class Day extends React.Component {
   render() {
     const {adding, data} = this.state;
     return (
-      <div>
-        <h3>{this.props.day}</h3>
+      <div className={`day ${this.props.day}`}>
+        <h3 className={`day-title`}>{this.props.day}</h3>
+        <p>{moment(this.props.date, 'MMDDYYYY').format('LL')}</p>
         {data.map(entry =>
-          <Entry data={entry} key={entry._id} getData={this.getData}/>
+          <Entry data={entry} key={entry._id} update={this.props.update} getData={this.getData}/>
         )}
-        {!adding && <button type="submit" onClick={this.toggleAdd}>+</button>}
+        {<button type="submit" onClick={this.toggleAdd}>{adding ? '-' : '+'}</button>}
         {adding && <Add getData={this.getData} toggleAdd={this.toggleAdd} date={this.props.date}/>}
       </div>
     )

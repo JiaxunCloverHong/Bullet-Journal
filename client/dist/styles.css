@@ -1,0 +1,52 @@
+.journal {
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(63, 63, 63);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.title {
+  align-self: center;
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.main {
+  height: 80vh;
+  display: grid;
+  grid-auto-rows: 50%;
+  grid-template-columns: repeat(3, minmax(auto, 1fr));
+  border: 1px solid rgb(63, 63, 63);
+}
+
+.day {
+  padding: 0;
+  border: 1px solid rgb(63, 63, 63);
+
+}
+
+
+.day-title {
+  padding-top: 0;
+  border-top: 0;
+  margin-top: 0;
+  border-bottom: 2px solid rgb(63, 63, 63)
+}
+
+.weekend {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Sat {
+  color: red;
+  flex: 1 1 20px;
+}
+.Sun{
+  flex: 2;
+  flex: 1 1 20px;
+}

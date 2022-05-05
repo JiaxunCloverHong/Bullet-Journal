@@ -1,13 +1,16 @@
 import React from "react";
-import meaning from './meaning.js';
 import axios from 'axios';
+
+import meaning from './meaning.js';
+import symbols from './symbols.js';
+
 
 class Add extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       body: '',
-      status: '',
+      entry_type: '',
     };
     this.symbol = this.symbol.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,7 +23,7 @@ class Add extends React.Component {
 
   handleClick() {
     axios.post('/bulletJournal', {
-      status: this.state.status,
+      entry_type: this.state.entry_type,
       body: this.state.body,
       date: this.props.date
     })
@@ -30,12 +33,14 @@ class Add extends React.Component {
   }
 
   symbol() {
-    const symbols = Object.keys(meaning).slice(0, 3).map(symbol =>
-      <option value={meaning[symbol]} key={meaning[symbol]}>{symbol}</option>
-    )
+
     return(
-    <select name="status" onChange={this.handleChange}>
-      {symbols}
+    <select name="entry_type" onChange={this.handleChange}>
+      <option value="" key="empty"></option>
+      {
+      Object.keys(symbols).map(symbol =>
+      <option value={symbol} key={symbol}>{meaning[symbol]}</option>
+      )}
     </select>
     );
   }

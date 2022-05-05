@@ -1,16 +1,3 @@
-/* const getLinkedList = (arr) => {
-  let start = {value: arr[0]};
-  let pointer = start;
-  const symbolsObj = {'☐': start};
-  arr.slice(1).forEach((symbol) => {
-    let node = {value: symbol};
-    symbolDict[symbol] = node;
-    pointer.next = node;
-    pointer = node;
-  })
-  pointer.next = start;
-  return symbolsObj;
-} */
 
 
 const meaning = {
@@ -25,7 +12,8 @@ const meaning = {
   'todo': '•',
   'complete': '✓',
   'move': '→',
-  'cancel':'✕'
+  'cancel':'✕',
+  'new': '',
 }
 
 export default meaning;

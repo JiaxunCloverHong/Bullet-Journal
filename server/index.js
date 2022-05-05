@@ -44,6 +44,38 @@ app.put('/bulletJournal', (req, res) => {
   })
 })
 
+app.put('/bulletJournal/move', (req, res) => {
+  console.log(req.body);
+  db.moveEntry(req.body, (err, data) => {
+    if(err) {
+      res.send(err);
+    } else {
+      res.send(data);
+    }
+  })
+})
+
+app.patch('/bulletJournal', (req, res) => {
+  db.editEntry(req.body, (err, data) => {
+    if(err) {
+      res.send(err);
+    } else {
+      res.send(data);
+    }
+  })
+})
+
+app.delete('/bulletJournal/:_id', (req, res) => {
+  console.log(req.params._id);
+  db.deleteEntry(req.params._id, (err, data) => {
+    if(err) {
+      res.send(err);
+    } else {
+      res.send(data);
+    }
+  })
+})
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
 })
