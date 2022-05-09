@@ -8,7 +8,7 @@
 .title {
   align-self: center;
 }
-.nav {
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -19,34 +19,122 @@
   display: grid;
   grid-auto-rows: 50%;
   grid-template-columns: repeat(3, minmax(auto, 1fr));
-  border: 1px solid rgb(63, 63, 63);
+  border: 1px solid rgb(63, 63, 63)
 }
 
-.day {
+.main > div {
   padding: 0;
   border: 1px solid rgb(63, 63, 63);
-
+  display: flex;
+  flex-direction: column;
 }
 
-
-.day-title {
+.main > div > h3 {
+  margin: 0;
+  flex-basis: 10%;
+  /* height: 10%; *//* color: red; */
   padding-top: 0;
-  border-top: 0;
   margin-top: 0;
-  border-bottom: 2px solid rgb(63, 63, 63)
+  border-bottom: 2px solid rgb(63, 63, 63);
 }
 
-.weekend {
-  height: 100%;
+.weekend-body h3{
+  font-size: 0px;
+}
+
+.day-body {
+  flex-basis: 100%;
+  height: 90%;
+
+/* overflow: auto; */}
+
+.weekend-body .day-body {height: 100%;}
+
+
+.weekend-body{
+  flex-basis: 100%;
+  height: 50%;
+
   display: flex;
   flex-direction: column;
 }
 
 .Sat {
+  height: 50%;
+  border-bottom: 1px solid rgb(63, 63, 63);
+}
+
+.Sun {
+  height: 50%;
+  border-top: 1px solid rgb(63, 63, 63);
+}
+.day-body > p {
+  /* color: red; */
+  height: 10%;
+  margin: 0;
+}
+
+.weekend-body > div > div > p {height: 20%;}
+
+.main > div > .day-body > .entries {
+  /* color: aqua; */
+  height: 90%;
+  overflow: auto;
+}
+
+.weekend-body > div > .day-body > .entries {
+  height: 80%;
+  /* color: yellow; */
+  overflow: auto;
+}
+
+.individual-entry {
+  padding: 0;
+  margin: 0 20px;
+  display: flex;
+  /* align-items: center; */
+}
+
+.entry-text p {
+  display: inline-block;
+}
+
+.entry-text p:nth-child(2) {
+  float: right;
   color: red;
-  flex: 1 1 20px;
 }
-.Sun{
-  flex: 2;
-  flex: 1 1 20px;
+
+.small-button {
+  border:0px;
+  color:rgb(63, 63, 63);
+  background-color: white;
+  font-size: 20px;
+  /* align-self: baseline; */
+display: flex;align-items: baseline;flex-basis: 20%;}
+
+.small-button:disabled {
+  color: lightgrey;
 }
+
+.small-button > div {
+  display: inline-block;
+
+}
+
+ .status-indicator {
+  left: -20px;
+  position: relative;
+}
+
+.entry-text {
+  display: inline-block;
+  align-self: center;
+width: 80%;}
+
+.entry-text p {
+  margin: 0;
+}
+/* .type-indicator {
+  position:relative;
+  font-size: 20px;
+}  */

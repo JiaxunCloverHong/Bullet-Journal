@@ -11,6 +11,7 @@ class Add extends React.Component {
     this.state = {
       body: '',
       entry_type: '',
+      time: '',
     };
     this.symbol = this.symbol.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -22,14 +23,17 @@ class Add extends React.Component {
   }
 
   handleClick() {
-    axios.post('/bulletJournal', {
-      entry_type: this.state.entry_type,
-      body: this.state.body,
-      date: this.props.date
-    })
-    .then(this.props.getData)
-    .then(this.props.toggleAdd)
-    .catch(console.log);
+    if(this.state.entry_type !== '' && this.state.body !== ''){
+      axios.post('/bulletJournal', {
+        entry_type: this.state.entry_type,
+        body: this.state.body,
+        date: this.props.date,
+        time: this.state.time === "" ? null : this.state.time,
+      })
+      .then(this.props.getData)
+      .then(this.props.toggleAdd)
+      .catch(console.log);
+    }
   }
 
   symbol() {
@@ -39,7 +43,7 @@ class Add extends React.Component {
       <option value="" key="empty"></option>
       {
       Object.keys(symbols).map(symbol =>
-      <option value={symbol} key={symbol}>{meaning[symbol]}</option>
+      <option value={symbol} key={symbol}>{meaning[symbol+'-text']}</option>
       )}
     </select>
     );
@@ -50,6 +54,8 @@ class Add extends React.Component {
       <div>
         {this.symbol()}
         <input type="text" name="body" value={this.state.body} onChange={this.handleChange}></input>
+        <input type="time" name="time" value={this.state.time} onChange={this.handleChange} required={false}></input>
+        <button type="submit" onClick={()=> {this.setState({time: ""})}}>clear time</button>
         <button type="submit" onClick={this.handleClick}>Add</button>
       </div>
 

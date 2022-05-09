@@ -1,8 +1,10 @@
 const db = require('./index');
 
 module.exports = {
+
   addEntry: (body, callback) => {
-    db.create({date: body.date, body: body.body, entry_type: body.entry_type}, (err, data) => {
+    console.log(body);
+    db.create({date: body.date, body: body.body, entry_type: body.entry_type, time: body.time}, (err, data) => {
       if(err) {
         callback(err);
       } else {
@@ -20,7 +22,7 @@ module.exports = {
     })
   },
   changeStatus: (body, callback) => {
-    db.update({_id: body._id}, {status: body.status}, (err, data) => {
+    db.updateOne({_id: body._id}, {status: body.status}, (err, data) => {
       if(err) {
         callback(err);
       } else {
@@ -29,7 +31,8 @@ module.exports = {
     })
   },
   editEntry: (body, callback) => {
-    db.update({_id: body._id}, {entry_type: body.entry_type, body: body.body, status: 'new'}, (err, data) => {
+    console.log(body.time);
+    db.updateOne({_id: body._id}, {entry_type: body.entry_type, body: body.body, status: 'new', time: body.time}, (err, data) => {
       if(err) {
         callback(err);
       } else {
@@ -47,7 +50,7 @@ module.exports = {
     })
   },
   moveEntry: (body, callback) => {
-    db.update({_id: body._id}, {moved: body.moved}, (err, data) => {
+    db.updateOne({_id: body._id}, {moved: body.moved}, (err, data) => {
       if(err) {
         callback(err);
       } else {

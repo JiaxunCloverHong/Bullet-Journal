@@ -7,7 +7,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       currDate: new Date(),
-      update: null,
+      update: '',
 
     };
     this.week = this.week.bind(this);
@@ -28,7 +28,7 @@ class App extends React.Component {
   update(date) {
     const {currDate} = this.state;
     console.log(date <= moment(currDate).endOf("week").format('MMDDYYYY'));
-    if(date <= moment(currDate).endOf("week").format('MMDDYYYY') && date >= moment(currDate).startOf("week").format('MMDDYYYY')) {
+    if(date <= moment(currDate).endOf("week").add(1, 'days').format('MMDDYYYY') && date >= moment(currDate).startOf("week").add(1, 'days').format('MMDDYYYY')) {
       console.log(date);
       this.setState({update: date});
     }
@@ -37,7 +37,7 @@ class App extends React.Component {
   updated(date) {
     console.log(date);
     if(this.state.update === date) {
-      this.setState({update: null});
+      this.setState({update: ''});
     }
   }
 
@@ -58,6 +58,8 @@ class App extends React.Component {
     );
     weekdays.push(
       <div className="weekend">
+        <h3>Weekend</h3>
+        <div className="weekend-body">
         {
           weekdaysShort.slice(5).map(day =>
             <Day
@@ -71,6 +73,7 @@ class App extends React.Component {
             />
           )
         }
+        </div>
       </div>
     )
     return weekdays;
@@ -87,13 +90,13 @@ class App extends React.Component {
     return(
     <div className="journal">
       <h1 className="title">Bullet Journal</h1>
-      <nav className="nav">
+      <header className="header">
         <button type="submit" onClick={()=>{this.changeWeek(moment(new Date()))}}>⌂</button>
         <button type="submit" onClick={()=>{this.changeWeek(moment(currDate).subtract(7, 'days'))}} >«</button>
         <p>{moment(currDate).startOf("week").add(1, 'days').format('LL')} - {moment(currDate).endOf("week").add(1, 'days').format('LL')}</p>
         <button type="submit" onClick={()=>{this.changeWeek(moment(currDate).add(7, 'days'))}}>»</button>
         <input type="date" name="currDate" onChange={this.handleChange}></input>
-      </nav>
+      </header>
       <div className="main">
         {this.week()}
       </div>

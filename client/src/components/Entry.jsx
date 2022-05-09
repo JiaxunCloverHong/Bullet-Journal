@@ -15,7 +15,8 @@ class Entry extends React.Component {
       entry_type: this.props.data.entry_type,
       showOptions: false,
       deleted: false,
-      newDate: '',
+      newDate: this.props.data.moved,
+      time: this.props.data.time,
     };
     this.handleClick = this.handleClick.bind(this);
     this.editEntry = this.editEntry.bind(this);
@@ -54,7 +55,7 @@ class Entry extends React.Component {
     if(clicks.length >= 2 * Object.keys(symbols[entry_type]).length - 1) {
       if(clickTime - clicks[0] < 3000){
         const hints = Object.keys(symbols[entry_type]).slice(1).map((node) => {
-          return meaning[node] + ': ' + node;
+          return meaning[node+'-text'] + ': ' + node;
         })
         alert( 'hint:\n' + hints.join('\n'));
       }
@@ -76,9 +77,15 @@ class Entry extends React.Component {
   }
 
   save() {
-    const {entry_type, body} = this.state;
+    const {entry_type, body, time} = this.state;
     this.setState({editing: false, status: 'new', showOptions: false});
-    axios.patch('/bulletJournal', {_id: this.props.data._id, entry_type: entry_type, body: body})
+    axios.patch('/bulletJournal',
+      {
+        _id: this.props.data._id,
+        entry_type: entry_type,
+        body: body,
+        time: time
+      })
     .then(this.props.getData)
     .catch(console.log);
   }
@@ -94,45 +101,68 @@ class Entry extends React.Component {
     .catch(console.log)
   }
 
+  componentDidUpdate(prev) {
+    if(prev !== this.props) {
+      console.log('update');
+      this.setState({
+        editing: false,
+        status: this.props.data.status,
+        body: this.props.data.body,
+        entry_type: this.props.data.entry_type,
+        showOptions: false,
+        deleted: false,
+        newDate: this.props.data.moved,
+        time: this.props.data.time,
+      })
+    }
+  }
+
 
   render() {
-    const {editing, status, showOptions, deleted, body, entry_type, newDate} = this.state;
+    const {editing, status, showOptions, deleted, body, entry_type, newDate, time} = this.state;
     const {moved, date} = this.props.data;
     return(
-      <ul>
-        {!deleted &&
+        !deleted &&
         (editing
         ? (
-          <div>
+          <ul>
             <select name="entry_type" value={entry_type} onChange={this.handleChange}>
               {
               Object.keys(symbols).map(symbol =>
-              <option value={symbol} key={symbol}>{meaning[symbol]}</option>
+              <option value={symbol} key={symbol}>{meaning[symbol+'-text']}</option>
               )}
             </select>
             <input type="text" name="body" value={body} onChange={this.handleChange}></input>
+            <input type="time" name="time" value={time} onChange={this.handleChange}></input>
+            <button type="submit" onClick={()=> {this.setState({time: null})}}>clear time</button>
             <button type="submit" onClick={this.save}>save</button>
             <button type="submit" onClick={this.restore}>discard</button>
-          </div>
+          </ul>
         )
         : (
           <div>
-            <div>{meaning[status]}</div>
-            <button type="submit" onClick={this.handleClick} disabled={moved !== "none"}>{meaning[entry_type]}</button>
-            <p onClick={()=> {(moved === "none") && this.setState({showOptions: !showOptions})}}>{body}</p>
-            {status === 'move' && (moved==="none") &&
-            (<div>
-              <input type="date" name="newDate" min={moment(date, 'MMDDYYYY').format('YYYY-MM-DD')} onChange={this.handleChange}></input>
-              <button type="submit" onClick={this.moveEntry} disabled={newDate === ''}>move</button>
-            </div>)}
+
+
+          <ul className="individual-entry">
+
+            <button className="small-button" type="submit" onClick={this.handleClick} disabled={moved !== "none"}>
+              {meaning[entry_type]}
+              {meaning[status]}
+            </button>
+            <div className="entry-text" onClick={()=> {(moved === "none") && this.setState({showOptions: !showOptions})}}><p>{body}</p><p>{time}</p></div>
             {showOptions &&
             (<div>
             <button type="submit" onClick={this.editEntry}>✎</button>
             <button type="submit" onClick={this.delete}>🗑</button>
             </div>)}
-          </div>
-        ))}
-      </ul>
+          </ul>
+          {status === 'move' && (moved==="none") &&
+            (<div>
+              <input type="date" name="newDate" min={moment(date, 'MMDDYYYY').format('YYYY-MM-DD')} onChange={this.handleChange}></input>
+              <button type="submit" onClick={this.moveEntry} disabled={newDate === ''}>move</button>
+            </div>)}
+            </div>
+        ))
     )
   }
 }

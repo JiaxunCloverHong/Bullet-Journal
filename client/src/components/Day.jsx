@@ -46,13 +46,17 @@ class Day extends React.Component {
     const {adding, data} = this.state;
     return (
       <div className={`day ${this.props.day}`}>
-        <h3 className={`day-title`}>{this.props.day}</h3>
-        <p>{moment(this.props.date, 'MMDDYYYY').format('LL')}</p>
-        {data.map(entry =>
-          <Entry data={entry} key={entry._id} update={this.props.update} getData={this.getData}/>
-        )}
-        {<button type="submit" onClick={this.toggleAdd}>{adding ? '-' : '+'}</button>}
-        {adding && <Add getData={this.getData} toggleAdd={this.toggleAdd} date={this.props.date}/>}
+        <h3>{this.props.day}</h3>
+          <div className="day-body">
+            <p>{moment(this.props.date, 'MMDDYYYY').format('DD')}</p>
+            <div className="entries">
+              {data.map(entry =>
+                <Entry data={entry} key={entry._id} update={this.props.update} getData={this.getData}/>
+              )}
+              {<button type="submit" onClick={this.toggleAdd}>{adding ? '-' : '+'}</button>}
+              {adding && <Add getData={this.getData} toggleAdd={this.toggleAdd} date={this.props.date}/>}
+          </div>
+        </div>
       </div>
     )
   }

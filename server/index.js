@@ -56,6 +56,7 @@ app.put('/bulletJournal/move', (req, res) => {
 })
 
 app.patch('/bulletJournal', (req, res) => {
+  console.log(req.body);
   db.editEntry(req.body, (err, data) => {
     if(err) {
       res.send(err);
