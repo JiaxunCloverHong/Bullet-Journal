@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import meaning from './meaning.js';
 import symbols from './symbols.js';
+import {TiDelete} from 'react-icons/ti';
+import {BiCheck} from 'react-icons/bi';
 
 
 class Add extends React.Component {
@@ -39,7 +41,7 @@ class Add extends React.Component {
   symbol() {
 
     return(
-    <select name="entry_type" onChange={this.handleChange}>
+    <select className="select-editing" name="entry_type" onChange={this.handleChange}>
       <option value="" key="empty"></option>
       {
       Object.keys(symbols).map(symbol =>
@@ -51,12 +53,20 @@ class Add extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.symbol()}
-        <input type="text" name="body" value={this.state.body} onChange={this.handleChange}></input>
-        <input type="time" name="time" value={this.state.time} onChange={this.handleChange} required={false}></input>
-        <button type="submit" onClick={()=> {this.setState({time: ""})}}>clear time</button>
-        <button type="submit" onClick={this.handleClick}>Add</button>
+      <div className="individual-entry-editing">
+        <div>
+          <div className="entry-editing">
+            {this.symbol()}
+            <div className="entry-text-editing">
+              <input className="input-body" type="text" name="body" value={this.state.body} onChange={this.handleChange}></input>
+              <div className="input-time"><input type="time" name="time" value={this.state.time} onChange={this.handleChange} required={false}></input>
+              <TiDelete className="tiny-button" type="submit" onClick={()=> {this.setState({time: ""})}}/></div>
+            </div>
+          </div>
+          <div className="button-group">
+            <BiCheck className="big-button" type="submit" onClick={this.handleClick}/>
+          </div>
+        </div>
       </div>
 
     )

@@ -14,6 +14,11 @@
   justify-content: space-between;
 }
 
+/* input{
+ border: none;
+ border-bottom: 1px solid rgb(63, 63, 63);
+} */
+
 .main {
   height: 80vh;
   display: grid;
@@ -89,19 +94,21 @@
 }
 
 .individual-entry {
-  padding: 0;
+  padding: 0px;
   margin: 0 20px;
-  display: flex;
-  /* align-items: center; */
 }
 
-.entry-text p {
+.entry{
+  display: flex;
+}
+
+.entry-text p{
   display: inline-block;
 }
 
+
 .entry-text p:nth-child(2) {
   float: right;
-  color: red;
 }
 
 .small-button {
@@ -109,11 +116,12 @@
   color:rgb(63, 63, 63);
   background-color: white;
   font-size: 20px;
+  padding: 1px;
   /* align-self: baseline; */
 display: flex;align-items: baseline;flex-basis: 20%;}
 
 .small-button:disabled {
-  color: lightgrey;
+  color: rgb(150, 150, 150);
 }
 
 .small-button > div {
@@ -129,12 +137,119 @@ display: flex;align-items: baseline;flex-basis: 20%;}
 .entry-text {
   display: inline-block;
   align-self: center;
-width: 80%;}
+  width: 80%;
+}
 
 .entry-text p {
   margin: 0;
+  word-break: break-word;
 }
-/* .type-indicator {
-  position:relative;
+
+.medium-button {
+  color: rgb(63, 63, 63);
+  margin: 20px;
+  background-color: white;
+}
+
+.medium-button:hover {
+  color: lightgrey;
+}
+
+.big-button {
+  color: rgb(63, 63, 63);
+  padding: 5px 10px 5px 10px;
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 5px;
+  background-color: white;
+}
+
+.big-button:hover {
+  border: 1px solid lightgrey;
+  color: lightgrey;
+}
+
+.button-group {
+  float: center;
+  display: flex;
+  justify-content: right;
+}
+
+.input-body {
+  flex-basis: 60%;
+  border: none;
+  border-bottom: 1px solid rgb(63, 63, 63);
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(63, 63, 63);
+  margin: 0;
+  width: 100%;
+}
+
+.select-editing {
+  border: none;
+  padding: 1px;
+  height: 22px;
+  flex-basis: 15%;
   font-size: 20px;
-}  */
+  color: rgb(63, 63, 63);
+  margin-right: 5%;
+}
+
+.individual-entry-editing {
+  padding: 0;
+  margin: 0 20px;
+}
+
+.entry-editing {
+  display: flex;
+}
+
+.entry-text-editing {
+  display: inline-block;
+  align-self: center;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+
+.huge-button {
+  color: rgb(63, 63, 63)
+}
+
+.huge-button:hover {
+  color: lightgray
+}
+
+.tiny-button {
+  color: rgb(63, 63, 63);
+}
+
+.tiny-button:hover {
+  color: lightgrey;
+}
+
+.other-button {
+  color:rgb(63, 63, 63);
+  border:1px solid rgb(63, 63, 63);
+  border-radius: 5px;
+  background-color: white;
+  margin: 2px;
+}
+
+.other-button:hover {
+  color: lightgrey;
+  border: 1px solid lightgrey;
+}
+
+.move {
+  margin: 5px;
+}
+
+.input-time {
+  flex-basis: 30%;
+  display: flex;
+  flex-direction: row;
+}

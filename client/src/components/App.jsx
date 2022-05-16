@@ -91,11 +91,11 @@ class App extends React.Component {
     <div className="journal">
       <h1 className="title">Bullet Journal</h1>
       <header className="header">
-        <button type="submit" onClick={()=>{this.changeWeek(moment(new Date()))}}>⌂</button>
-        <button type="submit" onClick={()=>{this.changeWeek(moment(currDate).subtract(7, 'days'))}} >«</button>
+        <button className="big-button" type="submit" onClick={()=>{this.changeWeek(moment(new Date()))}}>⌂</button>
+        <button className="big-button" type="submit" onClick={()=>{this.changeWeek(moment(currDate).subtract(7, 'days'))}} >«</button>
         <p>{moment(currDate).startOf("week").add(1, 'days').format('LL')} - {moment(currDate).endOf("week").add(1, 'days').format('LL')}</p>
-        <button type="submit" onClick={()=>{this.changeWeek(moment(currDate).add(7, 'days'))}}>»</button>
-        <input type="date" name="currDate" onChange={this.handleChange}></input>
+        <button className="big-button" type="submit" onClick={()=>{this.changeWeek(moment(currDate).add(7, 'days'))}}>»</button>
+        <p>Go to: <input type="date" name="currDate" onChange={this.handleChange}></input></p>
       </header>
       <div className="main">
         {this.week()}

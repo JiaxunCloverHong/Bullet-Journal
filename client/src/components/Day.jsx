@@ -3,6 +3,8 @@ import axios from 'axios';
 import moment from 'moment';
 import Add from './Add';
 import Entry from './Entry';
+import {IoIosAdd} from 'react-icons/io';
+import {IoIosRemove} from 'react-icons/io';
 
 class Day extends React.Component {
   constructor(props) {
@@ -53,8 +55,8 @@ class Day extends React.Component {
               {data.map(entry =>
                 <Entry data={entry} key={entry._id} update={this.props.update} getData={this.getData}/>
               )}
-              {<button type="submit" onClick={this.toggleAdd}>{adding ? '-' : '+'}</button>}
-              {adding && <Add getData={this.getData} toggleAdd={this.toggleAdd} date={this.props.date}/>}
+              {adding ?<IoIosRemove size={24} className="huge-button" type="submit" onClick={this.toggleAdd}/> : <IoIosAdd size={24} className="huge-button" type="submit" onClick={this.toggleAdd}/>}
+              {adding && <Add className="big-button" getData={this.getData} toggleAdd={this.toggleAdd} date={this.props.date}/>}
           </div>
         </div>
       </div>
