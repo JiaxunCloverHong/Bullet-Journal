@@ -1,1 +1,1 @@
-# MVP
+# Bullet Journal
